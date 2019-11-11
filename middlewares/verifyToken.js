@@ -19,8 +19,6 @@ module.exports = (request, response, next) => {
                 .status(500)
                 .send({ error });
         }
-
-        console.log(decoded);
         next();
     });    
 }

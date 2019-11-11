@@ -3,47 +3,47 @@ const CacheManager = require('cache-manager');
 //config
 const { cache } = require('../config/default');
 
-const ClientsModel = require('../models/Clients');
+const UsersModel = require('../models/Users');
 
 //instancia da biblioteca de cache
 const memoryCache = CacheManager.caching(cache);
 
-const clientModel = new ClientsModel();
+const userModel = new UsersModel();
 
-class Clients {
+class Users {
     static get(request, response) {
         const id = request.params.id;
-        const key = `client_${id}`;
+        const key = `user_${id}`;
         
         memoryCache.get(key, (err, result) => {
             if (result) {
                 return response.json(result);                
             }
                         
-            clientModel.get(id)
-            .then(client => {
-                if (!client.exists) {
-                    response.sendStatus(404);
-                }
+            userModel.get(id)
+                .then(user => {
+                    if (!user.exists) {
+                        response.sendStatus(404);
+                    }
 
-                const clientData = client.data();
-                memoryCache.set(key, clientData);
+                    const userData = user.data();
+                    memoryCache.set(key, userData);
 
-                response.json(client.data());                
-            })
-            .catch(err => {
-                response.sendStatus(503);
-            });
+                    response.json(user.data());                
+                })
+                .catch(err => {
+                    response.sendStatus(503);
+                });
         });
     } 
     
     static list(request, response) {
-        clientModel.list()
-            .then(clients => response.json(
-                clients.docs.map(client => (
+        userModel.list()
+            .then(Users => response.json(
+                Users.docs.map(user => (
                     {
-                        ...client.data(), 
-                        id: client.id
+                        ...user.data(), 
+                        id: user.id
                     }
                 ))
             ))
@@ -58,7 +58,7 @@ class Clients {
         //req -> params e o body
         //logica do firebase para atualizar os dados
         //return this.db
-         //   .collection('clients')
+         //   .collection('users')
          //   .doc(id)
          //   .get();
     }
@@ -71,4 +71,4 @@ class Clients {
 }
 
 
-module.exports = Clients;
+module.exports = Users;
