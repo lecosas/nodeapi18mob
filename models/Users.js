@@ -18,13 +18,11 @@ class Users extends BaseModel {
         return collection.get();
     }
 
-    update(req, res) {
-        //req -> params e o body
-        //logica do firebase para atualizar os dados
+    update(user, id) {
         return this.db
             .collection('users')
             .doc(id)
-            .get();
+            .update(user);
     }
 
     delete(req, res) {

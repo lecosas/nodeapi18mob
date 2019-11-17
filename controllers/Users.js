@@ -55,12 +55,18 @@ class Users {
     }
 
     static update(req, res) {
-        //req -> params e o body
-        //logica do firebase para atualizar os dados
-        //return this.db
-         //   .collection('users')
-         //   .doc(id)
-         //   .get();
+        const user = req.body;
+        const id = req.params.id;
+        userModel.update(user, id)
+        .then(result => {
+            if(!result) {
+                res.json({success : true});
+                res.sendStatus(200);
+            }
+
+        }).catch(err => {
+                console.log('Error updating document', err);
+        });
     }
 
     static delete(req, res) {
