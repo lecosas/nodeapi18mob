@@ -18,13 +18,11 @@ class Clients extends BaseModel {
         return collection.get();
     }
 
-    update(req, res) {
-        //req -> params e o body
-        //logica do firebase para atualizar os dados
+    update(client, id) {
         return this.db
             .collection('clients')
             .doc(id)
-            .get();
+            .update(client);
     }
 
     delete(req, res) {

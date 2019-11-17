@@ -55,12 +55,18 @@ class Clients {
     }
 
     static update(req, res) {
-        //req -> params e o body
-        //logica do firebase para atualizar os dados
-        //return this.db
-         //   .collection('clients')
-         //   .doc(id)
-         //   .get();
+        const client = req.body;
+        const id = req.params.id;
+        clientModel.update(client, id)
+        .then(result => {
+            if(!result) {
+                res.json({success : true});
+                res.sendStatus(200);
+            }
+
+        }).catch(err => {
+                console.log('Error updating document', err);
+        });
     }
 
     static delete(req, res) {
