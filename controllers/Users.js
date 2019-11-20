@@ -69,6 +69,19 @@ class Users {
         });
     }
 
+    static create(req, res) {
+        const user = req.body;
+        userModel.create(user)
+        .then(result => {
+            if(!result) {
+                res.json({success : true});
+                res.sendStatus(200);
+            } 
+        }).catch(err => {
+            console.log('Error creating document', err);
+        });
+    }
+
     static delete(req, res) {
         //req -> params e o body
         //logica do firebase para apagar os dados

@@ -11,7 +11,7 @@ class Users extends BaseModel {
             .doc(id)
             .get();
     }    
-
+    
     list(conditions = []) {
         let collection = this.db.collection('users');
         conditions.forEach(({ field, condition, value }) => collection = collection.where(field, condition, value));
@@ -23,6 +23,13 @@ class Users extends BaseModel {
             .collection('users')
             .doc(id)
             .update(user);
+    }
+
+    create(user) {
+        return this.db
+        .collection('users')
+        .doc()
+        .set(user);
     }
 
     delete(req, res) {
