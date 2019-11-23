@@ -33,8 +33,9 @@ class Clients extends BaseModel {
     }
 
     delete(req, res) {
-        //req -> params e o body
-        //logica do firebase para apagar os dados
+        return this.db.collection('clients')
+        .doc(req.params.id)
+        .delete();
     }
 
 
