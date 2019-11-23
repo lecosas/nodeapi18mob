@@ -85,6 +85,16 @@ class Users {
     static delete(req, res) {
         //req -> params e o body
         //logica do firebase para apagar os dados
+        userModel.delete(req, res)
+        .then((result) => {
+            if(!result) {
+                res.json({success : true});
+                res.sendStatus(200);
+            } 
+        })
+        .catch((err) => {
+            console.log('Error deleting document', err);
+        })
     }
 
 }
