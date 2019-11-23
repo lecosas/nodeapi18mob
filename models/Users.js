@@ -33,7 +33,7 @@ class Users extends BaseModel {
     }
 
     delete(req, res) {
-        return this.db.collection('uers')
+        return this.db.collection('users')
         .doc(req.params.id)
         .delete();
     }
