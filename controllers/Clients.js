@@ -54,6 +54,21 @@ class Clients {
             });
     }
 
+
+    static create(req, res) {
+        const client = req.body;
+        clientModel.create(client)
+        .then(result => {
+            if(!result) {
+                res.json({success : true});
+                res.sendStatus(200);
+            } 
+        }).catch(err => {
+            console.log('Error creating document', err);
+        });
+    }
+
+
     static update(req, res) {
         const client = req.body;
         const id = req.params.id;
